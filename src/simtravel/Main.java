@@ -7,6 +7,7 @@ package simtravel;
 
 import java.sql.SQLException;
 import simtravel.form.FrmLogin;
+import simtravel.form.SplashScreen;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-        new FrmLogin(null, true).setVisible(true);
+        new SplashScreen(50).showSplashAndExit();
     }
     
 }

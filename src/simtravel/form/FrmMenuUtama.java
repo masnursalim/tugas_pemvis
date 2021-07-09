@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.Date;
@@ -160,6 +161,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         menuAbout = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -566,7 +568,20 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu5.add(menuAbout);
 
+        jMenuItem8.setText("Panduan Aplikasi");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem8);
+
         jMenuItem5.setText("Download Laporan KKP");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem5);
 
         jMenuBar1.add(jMenu5);
@@ -714,6 +729,16 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 //        new FrmDaftarSupplier(null, true).setVisible(true);
     }//GEN-LAST:event_vendorMenuActionPerformed
 
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        File file = new File("src/simtravel/doc/Laporan KKP.docx");
+        new DBUtils().openFile(file.getAbsolutePath());
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        File file = new File("src/simtravel/doc/Panduan Aplikasi.docx");
+        new DBUtils().openFile(file.getAbsolutePath());
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -791,6 +816,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

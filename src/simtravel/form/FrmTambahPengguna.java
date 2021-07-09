@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import simtravel.utils.EncryptionUtils;
+import simtravel.utils.RegexUtils;
 
 /**
  *
@@ -81,6 +82,15 @@ public class FrmTambahPengguna extends javax.swing.JDialog {
         }else if(!passwordField.getText().equals(konfirmPasswordField.getText())){
             JOptionPane.showMessageDialog(null, "Password dan Konfirmasi Password harus sama", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
+        }
+        
+        // validate email format
+        
+        if(emailField.getText() != null && !emailField.getText().equals("")){
+            if(!new RegexUtils().validateEmail(emailField.getText())){
+                JOptionPane.showMessageDialog(null, "Format Alamat Email salah", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
         }
         
         return true;

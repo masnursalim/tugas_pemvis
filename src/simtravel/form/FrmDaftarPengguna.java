@@ -184,13 +184,15 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
                 int i = dataTable.getSelectedRow();
                 String kode = (String)dataTable.getValueAt(i, 1);
                 String nama = (String)dataTable.getValueAt(i, 2);
+                String email = (String)dataTable.getValueAt(i, 3);
 
                 System.out.println("Kode : "+kode);
 
                 Map data = new HashMap();
                 data.put("action", "edit");
-                data.put("kodePengguna", kode);
-                data.put("namaPengguna", nama);
+                data.put("userId", kode);
+                data.put("userName", nama);
+                data.put("email", email);
                 new FrmTambahPengguna(null, true, data).setVisible(true);
             }
         });
