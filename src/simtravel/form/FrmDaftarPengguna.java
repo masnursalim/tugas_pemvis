@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -50,6 +52,12 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFTable;
+import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 /**
  *
@@ -371,6 +379,83 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
         
         new DBUtils().openFile(FILE_NAME);
     }
+    
+    public void generateWord() throws FileNotFoundException, IOException{
+        File dir = new File("D:/tmp/");
+        if(!dir.exists()){
+            try{
+                dir.mkdirs();
+            }catch(Exception iex){
+                iex.printStackTrace();
+            }
+            
+        }
+        String FILE_NAME = dir.getAbsolutePath()+"/rpt_pengguna.docx";
+        
+        //Blank Document
+        XWPFDocument document = new XWPFDocument();
+        
+        FileOutputStream out = new FileOutputStream(FILE_NAME);
+
+        XWPFParagraph paragraph = document.createParagraph();
+        paragraph.setAlignment(ParagraphAlignment.CENTER);
+        XWPFRun run = paragraph.createRun();
+        run.setText("Laporan Daftar Pengguna");
+        run.setFontSize(20);
+        run.setBold(true);
+        
+        //create table
+        XWPFTable table = document.createTable();
+        table.setCellMargins(100, 100, 100, 100);
+        
+
+        //create first row
+        XWPFTableRow tableRowOne = table.getRow(0);      
+        tableRowOne.getCell(0).setText("No.");
+        tableRowOne.addNewTableCell().setText("User ID.");
+        tableRowOne.addNewTableCell().setText("User Name");
+        tableRowOne.addNewTableCell().setText("Email");
+        tableRowOne.addNewTableCell().setText("Level");
+        
+        String sql = "SELECT * FROM tbl_user";
+        con = new DBUtils().getKoneksi();
+        int cnt = 1;
+        List dataList = new ArrayList();
+        
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            int i = 0;
+            while (rs.next()){
+                Map dataMap = new HashMap();
+                dataMap.put("no", cnt++);
+                dataMap.put("user_id", rs.getString("user_id"));
+                dataMap.put("user_name", rs.getString("user_name"));
+                dataMap.put("email", rs.getString("email"));
+                dataMap.put("level", rs.getString("level"));
+                
+                dataList.add(dataMap);
+            }    
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        for(int i = 0; i < dataList.size(); i++){
+            Map dataMap = (Map) dataList.get(i);
+
+            XWPFTableRow tableRowTwo = table.createRow();
+            tableRowTwo.getCell(0).setText(dataMap.get("no").toString());
+            tableRowTwo.getCell(1).setText((String) dataMap.get("user_id"));
+            tableRowTwo.getCell(2).setText((String) dataMap.get("user_name"));
+            tableRowTwo.getCell(3).setText((String) dataMap.get("email"));
+            tableRowTwo.getCell(4).setText((String) dataMap.get("level"));
+            
+        }
+        document.write(out);
+        System.out.println("Done");
+        
+        new DBUtils().openFile(FILE_NAME);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -396,6 +481,7 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
         btnHapus = new javax.swing.JButton();
         expotXls = new javax.swing.JLabel();
         exportPdf = new javax.swing.JLabel();
+        exportWord = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
@@ -520,6 +606,13 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
             }
         });
 
+        exportWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/Word.png"))); // NOI18N
+        exportWord.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exportWordMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -531,6 +624,8 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
                 .addComponent(expotXls)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(exportPdf)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(exportWord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tambahBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -544,6 +639,7 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(exportWord)
                     .addComponent(exportPdf)
                     .addComponent(jLabel4)
                     .addComponent(expotXls)
@@ -693,6 +789,14 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
         generateExcel();
     }//GEN-LAST:event_expotXlsMouseClicked
 
+    private void exportWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportWordMouseClicked
+        try {
+            generateWord();
+        } catch (IOException ex) {
+            Logger.getLogger(FrmDaftarPengguna.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_exportWordMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -742,6 +846,7 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbPengguna;
     private javax.swing.JTable dataTable;
     private javax.swing.JLabel exportPdf;
+    private javax.swing.JLabel exportWord;
     private javax.swing.JLabel expotXls;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -6,7 +6,6 @@
 package simtravel;
 
 import java.sql.SQLException;
-import simtravel.form.FrmLogin;
 import simtravel.form.SplashScreen;
 
 /**
