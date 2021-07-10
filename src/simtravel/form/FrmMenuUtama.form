@@ -19,6 +19,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="barangMenu">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/simtravel/image/plane-24.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Maskapai"/>
               </Properties>
               <Events>
@@ -27,6 +30,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="vendorMenu">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/simtravel/image/building-16.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Hotel"/>
               </Properties>
               <Events>
@@ -41,11 +47,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Paket Haji"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Test"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="penggunaMenu">

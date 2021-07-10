@@ -61,7 +61,7 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
  *
  * @author nursalim
  */
-public class FrmDaftarHotel extends javax.swing.JDialog {
+public class FrmDaftarMaskapai extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmDaftar
@@ -73,7 +73,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
     JMenuItem menuItemAdd, menuItemRemove, menuItemUpdate;
     JPopupMenu popupMenu;
     
-    public FrmDaftarHotel(java.awt.Frame parent, boolean modal) {
+    public FrmDaftarMaskapai(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -93,18 +93,19 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         
         DefaultTableModel model= new DefaultTableModel(); 
         model.addColumn("No."); 
-        model.addColumn("Nama Hotel"); 
-        model.addColumn("Lokasi");
-        model.addColumn("Bintang");
+        model.addColumn("Nama Maskapai"); 
+        model.addColumn("No. Pesawat");
+        model.addColumn("Bandara");
+        model.addColumn("Kelas");
         model.addColumn("Tarif");
         dataTable.setModel(model);
         
         String sql = "";
         
-        if("Nama Hotel".equals(cbPengguna.getSelectedItem())){
-            sql = "SELECT * FROM tbl_hotel WHERE nama LIKE ?";
+        if("Nama Maskapai".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_maskapai WHERE nama LIKE ?";
         }else{
-            sql = "SELECT * FROM tbl_hotel WHERE lokasi LIKE ? ";
+            sql = "SELECT * FROM tbl_maskapai WHERE no_pesawat LIKE ? ";
         }
         
         con = new DBUtils().getKoneksi();
@@ -117,9 +118,10 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             while (rs.next()){
                 model.addRow(new Object[]{cnt++, 
                     rs.getString("nama"), 
-                    rs.getString("lokasi"),
-                    rs.getString("bintang"),
-                    rs.getString("tarif"),
+                    rs.getString("no_pesawat"),
+                    rs.getString("bandara"),
+                    rs.getString("kelas"),
+                    rs.getString("tarif")
                     } 
                 );
             }    
@@ -147,7 +149,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
     }
     
     public void hapusRecord(String kode){
-        String sql = "DELETE FROM tbl_hotel WHERE nama = ? ";
+        String sql = "DELETE FROM tbl_maskapai WHERE no_pesawat = ? ";
         con = new DBUtils().getKoneksi();
         try {
             ps = con.prepareStatement(sql);
@@ -156,7 +158,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             
             JOptionPane.showMessageDialog(null, "Data berhasil di hapus", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Data Gagal di hapus", "Error", JOptionPane.ERROR_MESSAGE);
         }
         
         showTable();
@@ -180,7 +182,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             public void actionPerformed(ActionEvent e) {
                 Map data = new HashMap();
                 data.put("action", "tambah");
-                new FrmTambahHotel(null, true, data).setVisible(true);
+                new FrmTambahMaskapai(null, true, data).setVisible(true);
             }
         });
         
@@ -196,7 +198,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
                 data.put("action", "edit");
                 data.put("namaHotel", namaHotel);
                 data.put("lokasi", lokasi);
-                new FrmTambahHotel(null, true, data).setVisible(true);
+                new FrmTambahMaskapai(null, true, data).setVisible(true);
             }
         });
         
@@ -228,7 +230,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         JasperPrint jasperPrint = null;
                
          try {
-            URL url = getClass().getResource("/simtravel/report/rpt_pengguna.jrxml");
+            URL url = getClass().getResource("/simtravel/report/rpt_maskapai.jrxml");
             jasperDesign = JRXmlLoader.load(url.openStream());
             
             Map param = new HashMap();
@@ -264,9 +266,9 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             
         }
         
-        String FILE_NAME = dir.getAbsolutePath()+"/rpt_pengguna.pdf";
+        String FILE_NAME = dir.getAbsolutePath()+"/rpt_maskapai.pdf";
          try {
-            File file = new File("src/simtravel/report/rpt_pengguna.jrxml");
+            File file = new File("src/simtravel/report/rpt_maskapai.jrxml");
             jasperDesign = JRXmlLoader.load(file);
             
             Map param = new HashMap();
@@ -294,15 +296,15 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             }
             
         }
-        String FILE_NAME = dir.getAbsolutePath()+"/rpt_hotel.xlsx";
+        String FILE_NAME = dir.getAbsolutePath()+"/rpt_maskapai.xlsx";
         
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("data");
         
-        Object[] header = {"No", "Nama Hotel", "Lokasi", "Bintang", "Tarif"};
+        Object[] header = {"No", "Nama Maskapai", "No. Pesawat", "Bandara", "Kelas", "Tarif"};
         
         
-        String sql = "SELECT * FROM tbl_hotel";
+        String sql = "SELECT * FROM tbl_maskapai";
         con = new DBUtils().getKoneksi();
         int cnt = 1;
         List dataList = new ArrayList();
@@ -315,8 +317,9 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
                 Map dataMap = new HashMap();
                 dataMap.put("no", cnt++);
                 dataMap.put("nama", rs.getString("nama"));
-                dataMap.put("lokasi", rs.getString("lokasi"));
-                dataMap.put("bintang", rs.getString("bintang"));
+                dataMap.put("no_pesawat", rs.getString("no_pesawat"));
+                dataMap.put("bandara", rs.getString("bandara"));
+                dataMap.put("kelas", rs.getString("kelas"));
                 dataMap.put("tarif", rs.getString("tarif"));
                 
                 dataList.add(dataMap);
@@ -352,9 +355,11 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             cell = row.createCell(colNum++);
             cell.setCellValue((String)dataMap.get("nama"));
             cell = row.createCell(colNum++);
-            cell.setCellValue((String)dataMap.get("lokasi"));
+            cell.setCellValue((String)dataMap.get("no_pesawat"));
             cell = row.createCell(colNum++);
-            cell.setCellValue((String)dataMap.get("bintang"));
+            cell.setCellValue((String)dataMap.get("bandara"));
+            cell = row.createCell(colNum++);
+            cell.setCellValue((String)dataMap.get("kelas"));
             cell = row.createCell(colNum++);
             cell.setCellValue((String)dataMap.get("tarif"));
             
@@ -385,7 +390,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             }
             
         }
-        String FILE_NAME = dir.getAbsolutePath()+"/rpt_hotel.docx";
+        String FILE_NAME = dir.getAbsolutePath()+"/rpt_maskapai.docx";
         
         //Blank Document
         XWPFDocument document = new XWPFDocument();
@@ -395,7 +400,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         XWPFParagraph paragraph = document.createParagraph();
         paragraph.setAlignment(ParagraphAlignment.CENTER);
         XWPFRun run = paragraph.createRun();
-        run.setText("Laporan Daftar Hotel");
+        run.setText("Laporan Daftar Maskapai");
         run.setFontSize(20);
         run.setBold(true);
         
@@ -407,12 +412,13 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         //create first row
         XWPFTableRow tableRowOne = table.getRow(0);      
         tableRowOne.getCell(0).setText("No.");
-        tableRowOne.addNewTableCell().setText("Nama Hotel");
-        tableRowOne.addNewTableCell().setText("Lokasi");
-        tableRowOne.addNewTableCell().setText("Bintang");
+        tableRowOne.addNewTableCell().setText("Nama Maskapai");
+        tableRowOne.addNewTableCell().setText("No. Pesawat");
+        tableRowOne.addNewTableCell().setText("Bandara");
+        tableRowOne.addNewTableCell().setText("Kelas");
         tableRowOne.addNewTableCell().setText("Tarif");
         
-        String sql = "SELECT * FROM tbl_hotel";
+        String sql = "SELECT * FROM tbl_maskapai";
         con = new DBUtils().getKoneksi();
         int cnt = 1;
         List dataList = new ArrayList();
@@ -425,8 +431,9 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
                 Map dataMap = new HashMap();
                 dataMap.put("no", cnt++);
                 dataMap.put("nama", rs.getString("nama"));
-                dataMap.put("lokasi", rs.getString("lokasi"));
-                dataMap.put("bintang", rs.getString("bintang"));
+                dataMap.put("no_pesawat", rs.getString("no_pesawat"));
+                dataMap.put("bandara", rs.getString("bandara"));
+                dataMap.put("kelas", rs.getString("kelas"));
                 dataMap.put("tarif", rs.getString("tarif"));
                 
                 dataList.add(dataMap);
@@ -441,8 +448,9 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             XWPFTableRow tableRowTwo = table.createRow();
             tableRowTwo.getCell(0).setText(dataMap.get("no").toString());
             tableRowTwo.getCell(1).setText((String) dataMap.get("nama"));
-            tableRowTwo.getCell(2).setText((String) dataMap.get("lokasi"));
-            tableRowTwo.getCell(3).setText((String) dataMap.get("bintang"));
+            tableRowTwo.getCell(2).setText((String) dataMap.get("no_pesawat"));
+            tableRowTwo.getCell(3).setText((String) dataMap.get("bandara"));
+            tableRowTwo.getCell(4).setText((String) dataMap.get("kelas"));
             tableRowTwo.getCell(4).setText((String) dataMap.get("tarif"));
             
         }
@@ -491,8 +499,8 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/building-32.png"))); // NOI18N
-        jLabel1.setText("Daftar Hotel");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/plane-32.png"))); // NOI18N
+        jLabel1.setText("Daftar Maskapai");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -517,7 +525,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
 
         jLabel3.setText("Kata Kunci ");
 
-        cbPengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nama Hotel", "Lokasi" }));
+        cbPengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nama Maskapai", "No. Pesawat", "Kelas" }));
 
         btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/cari-16.png"))); // NOI18N
         btnCari.setText("Cari");
@@ -736,7 +744,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         data.put("action", "edit");
         data.put("userId", kode);
         data.put("userName", nama);
-        new FrmTambahPengguna(null, true, data).setVisible(true);
+        new FrmTambahMaskapai(null, true, data).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
@@ -761,7 +769,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         dispose();
         Map data = new HashMap();
         data.put("action", "tambah");
-        new FrmTambahHotel(null, true, data).setVisible(true);
+        new FrmTambahMaskapai(null, true, data).setVisible(true);
     }//GEN-LAST:event_tambahBtnActionPerformed
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
@@ -794,51 +802,20 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmDaftarHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmDaftarMaskapai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmDaftarHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmDaftarMaskapai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmDaftarHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmDaftarMaskapai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmDaftarHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmDaftarMaskapai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmDaftarHotel dialog = new FrmDaftarHotel(new javax.swing.JFrame(), true);
+                FrmDaftarMaskapai dialog = new FrmDaftarMaskapai(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

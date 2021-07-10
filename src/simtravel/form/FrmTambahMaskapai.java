@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author nursalim
  */
-public class FrmTambahHotel extends javax.swing.JDialog {
+public class FrmTambahMaskapai extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmDaftar
@@ -37,7 +37,7 @@ public class FrmTambahHotel extends javax.swing.JDialog {
     private Date today;
     private java.sql.Date sqlDate;
     
-    public FrmTambahHotel(java.awt.Frame parent, boolean modal, Map data) {
+    public FrmTambahMaskapai(java.awt.Frame parent, boolean modal, Map data) {
         super(parent, modal);
         con = new DBUtils().getKoneksi();
         userId = (String) data.get("userId");
@@ -332,21 +332,23 @@ public class FrmTambahHotel extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmTambahHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTambahMaskapai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmTambahHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTambahMaskapai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmTambahHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTambahMaskapai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmTambahHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmTambahMaskapai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmTambahHotel dialog = new FrmTambahHotel(new javax.swing.JFrame(), true, null);
+                FrmTambahMaskapai dialog = new FrmTambahMaskapai(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

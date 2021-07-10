@@ -150,7 +150,6 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         vendorMenu = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
         penggunaMenu = new javax.swing.JMenuItem();
         penjualanMenu = new javax.swing.JMenu();
         kandidatMenu = new javax.swing.JMenuItem();
@@ -475,6 +474,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu1.add(kategoriMenu);
 
+        barangMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/plane-24.png"))); // NOI18N
         barangMenu.setText("Maskapai");
         barangMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -483,6 +483,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu1.add(barangMenu);
 
+        vendorMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/building-16.png"))); // NOI18N
         vendorMenu.setText("Hotel");
         vendorMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -496,9 +497,6 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 
         jMenuItem6.setText("Paket Haji");
         jMenu1.add(jMenuItem6);
-
-        jMenuItem7.setText("Test");
-        jMenu1.add(jMenuItem7);
 
         penggunaMenu.setText("Pengguna");
         penggunaMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -683,7 +681,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         System.out.println("UserId == "+userId);
         Map data = new HashMap();
         data.put("userId", userId);
-//        new FrmDaftarBarang(null, true).setVisible(true);
+        new FrmDaftarMaskapai(null, true).setVisible(true);
     }//GEN-LAST:event_barangMenuActionPerformed
 
     private void candidatPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_candidatPanelMouseClicked
@@ -726,7 +724,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private void vendorMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendorMenuActionPerformed
         Map data = new HashMap();
         data.put("userId", userId);
-//        new FrmDaftarSupplier(null, true).setVisible(true);
+        new FrmDaftarHotel(null, true).setVisible(true);
     }//GEN-LAST:event_vendorMenuActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
@@ -815,7 +813,6 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

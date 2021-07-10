@@ -75,12 +75,6 @@ public class EncryptionUtils {
     public static void main(String[] args){
         final String secretKey = "p@ssw0rd";
      
-        String originalString = "admin";
-        String encryptedString = EncryptionUtils.encrypt(originalString, secretKey) ;
-        String decryptedString = EncryptionUtils.decrypt(encryptedString, secretKey) ;
-
-        System.out.println(originalString);
-        System.out.println(encryptedString);
-        System.out.println(decryptedString);
+        System.out.println(decrypt("S507auRD6gaC1qefj4aa4g==", secretKey));
     }
 }
