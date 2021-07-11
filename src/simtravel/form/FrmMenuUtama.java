@@ -173,7 +173,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(51, 51, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/Apps-menu-editor-icon.png"))); // NOI18N
-        jLabel1.setText("Menu Pavorit");
+        jLabel1.setText("Menu Favorit");
         jLabel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         candidatPanel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -466,6 +466,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 
         jMenu1.setText("Master");
 
+        kategoriMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/hajj-24.png"))); // NOI18N
         kategoriMenu.setText("Calon Jamaah");
         kategoriMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
