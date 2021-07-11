@@ -748,6 +748,8 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
         data.put("userId", kode);
         data.put("userName", nama);
         data.put("email", email);
+        
+        dispose();
         new FrmTambahPengguna(null, true, data).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
