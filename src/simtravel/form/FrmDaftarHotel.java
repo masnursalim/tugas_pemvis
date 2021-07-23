@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -103,17 +105,32 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         
         String sql = "";
         
-        if("Nama Hotel".equals(cbPengguna.getSelectedItem())){
-            sql = "SELECT * FROM tbl_hotel WHERE nama LIKE ?";
-        }else{
+        if("Semua".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_hotel WHERE nama LIKE ? OR lokasi LIKE ? OR bintang LIKE ? OR tarif LIKE ?";
+        }else if("Nama Hotel".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_hotel WHERE nama LIKE ? ";
+        }else if("Bintang".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_hotel WHERE bintang LIKE ? ";
+        }else if("Lokasi".equals(cbPengguna.getSelectedItem())){
             sql = "SELECT * FROM tbl_hotel WHERE lokasi LIKE ? ";
+        }else{
+            sql = "SELECT * FROM tbl_hotel WHERE tarif LIKE ? ";
         }
         
         con = new DBUtils().getKoneksi();
         int cnt = 1;
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, kataKunci);
+            
+            if("Semua".equals(cbPengguna.getSelectedItem())){
+                ps.setString(1, kataKunci);
+                ps.setString(2, kataKunci);
+                ps.setString(3, kataKunci);
+                ps.setString(4, kataKunci);
+            }else{
+                ps.setString(1, kataKunci);
+            }
+            
             rs = ps.executeQuery();
             
             while (rs.next()){
@@ -175,8 +192,8 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         menuItemRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/hapus-16.png")));
  
         popupMenu.add(menuItemAdd);
-        popupMenu.add(menuItemRemove);
         popupMenu.add(menuItemUpdate);
+        popupMenu.add(menuItemRemove);
         
         menuItemAdd.addActionListener(new ActionListener() {
             @Override
@@ -193,12 +210,14 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
                 int i = dataTable.getSelectedRow();
                 String namaHotel = (String)dataTable.getValueAt(i, 1);
                 String lokasi = (String)dataTable.getValueAt(i, 2);
+                String bintang = (String)dataTable.getValueAt(i, 3);
                 String tarif = (String)dataTable.getValueAt(i, 4);
 
                 Map data = new HashMap();
                 data.put("action", "edit");
                 data.put("namaHotel", namaHotel);
                 data.put("lokasi", lokasi);
+                data.put("bintang", bintang);
                 data.put("tarif", new CurrencyUtils().unFormatRupiah(tarif));
                 new FrmTambahHotel(null, true, data).setVisible(true);
             }
@@ -480,7 +499,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         btnHapus = new javax.swing.JButton();
         expotXls = new javax.swing.JLabel();
         exportPdf = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        exportWord = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
@@ -522,7 +541,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
 
         jLabel3.setText("Kata Kunci ");
 
-        cbPengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nama Hotel", "Lokasi" }));
+        cbPengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua", "Nama Hotel", "Bintang", "Lokasi" }));
 
         btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/cari-16.png"))); // NOI18N
         btnCari.setText("Cari");
@@ -606,7 +625,12 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/Word.png"))); // NOI18N
+        exportWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/Word.png"))); // NOI18N
+        exportWord.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exportWordMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -620,7 +644,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(exportPdf)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(exportWord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tambahBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -634,7 +658,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
+                    .addComponent(exportWord)
                     .addComponent(exportPdf)
                     .addComponent(jLabel4)
                     .addComponent(expotXls)
@@ -646,6 +670,8 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Data"));
+
+        jScrollPane1.setAutoscrolls(true);
 
         dataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -741,12 +767,14 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         int i = dataTable.getSelectedRow();
         String namaHotel = (String)dataTable.getValueAt(i, 1);
         String lokasi = (String)dataTable.getValueAt(i, 2);
-        String tarif = (String)dataTable.getValueAt(i, 3);        
+        String bintang = (String)dataTable.getValueAt(i, 3);
+        String tarif = (String)dataTable.getValueAt(i, 4);        
         
         Map data = new HashMap();
         data.put("action", "edit");
         data.put("namaHotel", namaHotel);
         data.put("lokasi", lokasi);
+        data.put("bintang", bintang);
         data.put("tarif", new CurrencyUtils().unFormatRupiah(tarif));
         new FrmTambahHotel(null, true, data).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
@@ -789,6 +817,14 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
         generateExcel();
     }//GEN-LAST:event_expotXlsMouseClicked
 
+    private void exportWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportWordMouseClicked
+        try {
+            generateWord();
+        } catch (IOException ex) {
+            Logger.getLogger(FrmDaftarHotel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_exportWordMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -817,6 +853,7 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbPengguna;
     private javax.swing.JTable dataTable;
     private javax.swing.JLabel exportPdf;
+    private javax.swing.JLabel exportWord;
     private javax.swing.JLabel expotXls;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
@@ -824,7 +861,6 @@ public class FrmDaftarHotel extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

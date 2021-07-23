@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -50,15 +51,18 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 //        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/beasiswa/image/baitul_mal_32.png"));    
 //        setIconImage(icon);   
         initComponents();
+   
         
         setLocationRelativeTo(null);
         jamDigital.setText("");
         jamDigital();
-        userId = (String)data.get("userId");
-        userName = (String)data.get("userName");
+        userId = "nursalim";//(String)data.get("userId");
+        userName = "Nursalim";//(String)data.get("userName");
         labelWelcome.setText(labelWelcome.getText().concat(userName));
+//        labelWelcome = new MarqueeLabel(labelWelcome.getText(), MarqueeLabel.RIGHT_TO_LEFT, 20);
         
         setDashboard();
+        randomColorJamaahDashboard();
     }
     
     
@@ -102,8 +106,28 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         new Timer(1000, taskPerformer).start();
     }
     
+    public void randomColorJamaahDashboard(){
+        final Random r=new Random();
+        ActionListener taskPerformer2 = new ActionListener() {
+          public void actionPerformed(ActionEvent evt) {
+            Color c1 = new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256),r.nextInt(256));
+            Color c2 = new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256),r.nextInt(256));
+            Color c3 = new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256),r.nextInt(256));
+            totalPenggunaLabel.setForeground(c1);
+            totalJamaahLabel.setForeground(c2);
+            totalPemesananLabel.setForeground(c3);
+            
+            setDashboard();
+          }
+        };
+        // Timer
+        new Timer(1000, taskPerformer2).start();
+    }
+    
     public void setDashboard(){
         totalPenggunaLabel.setText(new DBUtils().getTotalPengguna());
+        totalJamaahLabel.setText(new DBUtils().getTotalJamaah());
+        totalPemesananLabel.setText(new DBUtils().getTotalPemesanan());
     }
 
     /**
@@ -136,13 +160,16 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        totalJamaahLabel = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        totalPemesananLabel = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         totalPenggunaLabel = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         kategoriMenu = new javax.swing.JMenuItem();
@@ -165,6 +192,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sistem Informasi Travel Umrah & Haji - PT. Ismata Nusantara Abadi");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -294,7 +322,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
                 .addComponent(pesertaPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(salaryCreditingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         labelWelcome.setText("Selamat Datang, ");
@@ -349,12 +377,13 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Total Calon Jamaah");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("10");
+        totalJamaahLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        totalJamaahLabel.setForeground(new java.awt.Color(255, 255, 255));
+        totalJamaahLabel.setText("10");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -363,17 +392,17 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(totalJamaahLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(totalJamaahLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addContainerGap())
         );
@@ -381,12 +410,13 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jPanel5.setBackground(new java.awt.Color(102, 0, 102));
         jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Total Pemesanan");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("20");
+        totalPemesananLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        totalPemesananLabel.setForeground(new java.awt.Color(255, 255, 255));
+        totalPemesananLabel.setText("20");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -396,13 +426,13 @@ public class FrmMenuUtama extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(totalPemesananLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel9)
+                .addComponent(totalPemesananLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addContainerGap())
@@ -411,10 +441,11 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jPanel6.setBackground(new java.awt.Color(51, 51, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Total Pengguna");
 
-        totalPenggunaLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        totalPenggunaLabel.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         totalPenggunaLabel.setForeground(new java.awt.Color(255, 255, 255));
         totalPenggunaLabel.setText("30");
 
@@ -427,7 +458,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(totalPenggunaLabel))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -446,11 +477,11 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -461,7 +492,35 @@ public class FrmMenuUtama extends javax.swing.JDialog {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel7.setBackground(new java.awt.Color(153, 51, 255));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("PT. Ismata Nusantara Abadi");
+
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("Perumahan Harapan Baru 1, Jl. Harapan Baru Bar. No.Blok FA 1, RT.005/RW.No. 59, Kota Baru, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17133");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel13)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Master");
@@ -494,11 +553,22 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jMenu1.add(vendorMenu);
 
         jMenuItem4.setText("Paket Umrah");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem4);
 
         jMenuItem6.setText("Paket Haji");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem6);
 
+        penggunaMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/group-24.png"))); // NOI18N
         penggunaMenu.setText("Pengguna");
         penggunaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -511,7 +581,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 
         penjualanMenu.setText("Transaksi");
 
-        kandidatMenu.setText("Pemesanan");
+        kandidatMenu.setText("Input Pemesanan");
         kandidatMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kandidatMenuActionPerformed(evt);
@@ -539,7 +609,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu3.add(dashboardPenerimaBeasiswa);
 
-        jMenuItem2.setText("Laporan Status Pembayaran");
+        jMenuItem2.setText("Laporan Keberangkatan/Kepulangan");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -594,40 +664,46 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jamDigital)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(labelWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ubahPasswordLabel)
-                                .addGap(10, 10, 10)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(logoutLabel)))))
-                .addContainerGap(53, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jamDigital))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ubahPasswordLabel)
+                        .addGap(10, 10, 10)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logoutLabel)))
+                .addContainerGap(54, Short.MAX_VALUE))
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelWelcome)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(ubahPasswordLabel)
-                        .addComponent(jSeparator2))
-                    .addComponent(logoutLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jamDigital)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelWelcome)
+                        .addGap(8, 8, 8)
+                        .addComponent(jamDigital))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ubahPasswordLabel)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logoutLabel))))
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jamDigital.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -655,7 +731,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         System.out.println("UserId == "+userId);
         Map data = new HashMap();
         data.put("userId", userId);
-//        new FrmDaftarKategori(null, true).setVisible(true);
+        new FrmDaftarCalonJamaah(null, true).setVisible(true);
     }//GEN-LAST:event_kategoriMenuActionPerformed
 
     private void penggunaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_penggunaMenuActionPerformed
@@ -675,7 +751,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         System.out.println("UserId == "+userId);
         Map data = new HashMap();
         data.put("userId", userId);
-//        new FrmDaftarKandidat(null, true, data).setVisible(true);
+        new FrmPemesanan(null, true, data).setVisible(true);
     }//GEN-LAST:event_kandidatMenuActionPerformed
 
     private void barangMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barangMenuActionPerformed
@@ -688,19 +764,19 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private void candidatPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_candidatPanelMouseClicked
         Map data = new HashMap();
         data.put("userId", userId);
-//        new FrmDaftarKandidat(null, true, data).setVisible(true);
+        new FrmDaftarCalonJamaah(null, true).setVisible(true);
     }//GEN-LAST:event_candidatPanelMouseClicked
 
     private void pesertaPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pesertaPanelMouseClicked
         Map data = new HashMap();
         data.put("userId", userId);
-//        new FrmDaftarPeserta(null, true, data).setVisible(true);
+        new FrmPemesanan(null, true, data).setVisible(true);
     }//GEN-LAST:event_pesertaPanelMouseClicked
 
     private void salaryCreditingPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salaryCreditingPanelMouseClicked
         Map data = new HashMap();
         data.put("userId", userId);
-//        new FrmDaftarSalaryCrediting(null, true, data).setVisible(true);
+        new FrmStatusPembayaran(null, true, data).setVisible(true);
     }//GEN-LAST:event_salaryCreditingPanelMouseClicked
 
     private void dashboardPenerimaBeasiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardPenerimaBeasiswaActionPerformed
@@ -708,18 +784,18 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     }//GEN-LAST:event_dashboardPenerimaBeasiswaActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-//        new FrmBarChartPenerimaBeasiswa(null, true).setVisible(true);
+
+        new FrmLaporanKeberangkatan(null, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-//        new FrmChartHasilSeleksi(null, true).setVisible(true);
+        new FrmLaporanPemesanan(null, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         Map data = new HashMap();
         data.put("userId", userId);
-//        new FrmDaftarSeleksi(null, true, data).setVisible(true);
+        new FrmStatusPembayaran(null, true, data).setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void vendorMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vendorMenuActionPerformed
@@ -737,6 +813,18 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         File file = new File("src/simtravel/doc/Panduan Aplikasi.docx");
         new DBUtils().openFile(file.getAbsolutePath());
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        Map data = new HashMap();
+        data.put("userId", userId);
+        new FrmDaftarPaket(null, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        Map data = new HashMap();
+        data.put("userId", userId);
+        new FrmDaftarPaketHaji(null, true).setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -793,7 +881,9 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private javax.swing.JMenuItem dashboardPenerimaBeasiswa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
@@ -802,8 +892,6 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
@@ -821,6 +909,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel jamDigital;
     private javax.swing.JMenuItem kandidatMenu;
@@ -832,6 +921,8 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private javax.swing.JMenu penjualanMenu;
     private javax.swing.JPanel pesertaPanel;
     private javax.swing.JPanel salaryCreditingPanel;
+    private javax.swing.JLabel totalJamaahLabel;
+    private javax.swing.JLabel totalPemesananLabel;
     private javax.swing.JLabel totalPenggunaLabel;
     private javax.swing.JLabel ubahPasswordLabel;
     private javax.swing.JMenuItem vendorMenu;

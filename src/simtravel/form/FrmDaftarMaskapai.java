@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,6 +27,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -56,6 +59,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
+import simtravel.utils.CurrencyUtils;
 
 /**
  *
@@ -94,7 +98,6 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
         DefaultTableModel model= new DefaultTableModel(); 
         model.addColumn("No."); 
         model.addColumn("Nama Maskapai"); 
-        model.addColumn("No. Pesawat");
         model.addColumn("Bandara");
         model.addColumn("Kelas");
         model.addColumn("Tarif");
@@ -102,26 +105,42 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
         
         String sql = "";
         
-        if("Nama Maskapai".equals(cbPengguna.getSelectedItem())){
-            sql = "SELECT * FROM tbl_maskapai WHERE nama LIKE ?";
+        if("Semua".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_maskapai WHERE nama LIKE ? OR kelas LIKE ? or tarif LIKE ? or bandara LIKE ?";
+        }else if("Nama Maskapai".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_maskapai WHERE nama LIKE ? ";
+        }else if("Kelas".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_maskapai WHERE kelas LIKE ? ";
+        }else if("Bandara".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_maskapai WHERE bandara LIKE ? ";    
         }else{
-            sql = "SELECT * FROM tbl_maskapai WHERE no_pesawat LIKE ? ";
-        }
+            sql = "SELECT * FROM tbl_maskapai WHERE tarif LIKE ? ";
+        }    
         
         con = new DBUtils().getKoneksi();
         int cnt = 1;
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, kataKunci);
+            
+            if("Semua".equals(cbPengguna.getSelectedItem())){
+                ps.setString(1, kataKunci);
+                ps.setString(2, kataKunci);
+                ps.setString(3, kataKunci);
+                ps.setString(4, kataKunci);
+            }else{
+                ps.setString(1, kataKunci);
+            }
+            
+            
+            
             rs = ps.executeQuery();
             
             while (rs.next()){
                 model.addRow(new Object[]{cnt++, 
                     rs.getString("nama"), 
-                    rs.getString("no_pesawat"),
                     rs.getString("bandara"),
                     rs.getString("kelas"),
-                    rs.getString("tarif")
+                    new CurrencyUtils().formatRupiah(new BigDecimal(rs.getString("tarif").toString()))
                     } 
                 );
             }    
@@ -149,7 +168,7 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
     }
     
     public void hapusRecord(String kode){
-        String sql = "DELETE FROM tbl_maskapai WHERE no_pesawat = ? ";
+        String sql = "DELETE FROM tbl_maskapai WHERE nama = ? ";
         con = new DBUtils().getKoneksi();
         try {
             ps = con.prepareStatement(sql);
@@ -173,9 +192,9 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
         menuItemRemove = new JMenuItem("Hapus Data");
         menuItemRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/hapus-16.png")));
  
-        popupMenu.add(menuItemAdd);
-        popupMenu.add(menuItemRemove);
+        popupMenu.add(menuItemAdd);        
         popupMenu.add(menuItemUpdate);
+        popupMenu.add(menuItemRemove);
         
         menuItemAdd.addActionListener(new ActionListener() {
             @Override
@@ -190,14 +209,19 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int i = dataTable.getSelectedRow();
-                String namaHotel = (String)dataTable.getValueAt(i, 1);
-                String lokasi = (String)dataTable.getValueAt(i, 2);
+                String namaMaskapai = (String)dataTable.getValueAt(i, 1);
+                String bandara = (String)dataTable.getValueAt(i, 2);
+                String kelas = (String)dataTable.getValueAt(i, 3);
+                String tarif = (String)dataTable.getValueAt(i, 4);
 
 
                 Map data = new HashMap();
                 data.put("action", "edit");
-                data.put("namaHotel", namaHotel);
-                data.put("lokasi", lokasi);
+                data.put("namaMaskapai", namaMaskapai);
+                data.put("bandara", bandara);
+                data.put("kelas", kelas);
+                data.put("tarif", new CurrencyUtils().unFormatRupiah(tarif));
+                
                 new FrmTambahMaskapai(null, true, data).setVisible(true);
             }
         });
@@ -301,7 +325,7 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet sheet = workbook.createSheet("data");
         
-        Object[] header = {"No", "Nama Maskapai", "No. Pesawat", "Bandara", "Kelas", "Tarif"};
+        Object[] header = {"No", "Nama Maskapai", "Bandara", "Kelas", "Tarif"};
         
         
         String sql = "SELECT * FROM tbl_maskapai";
@@ -317,10 +341,9 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
                 Map dataMap = new HashMap();
                 dataMap.put("no", cnt++);
                 dataMap.put("nama", rs.getString("nama"));
-                dataMap.put("no_pesawat", rs.getString("no_pesawat"));
                 dataMap.put("bandara", rs.getString("bandara"));
                 dataMap.put("kelas", rs.getString("kelas"));
-                dataMap.put("tarif", rs.getString("tarif"));
+                dataMap.put("tarif", new CurrencyUtils().formatRupiah(new BigDecimal(rs.getString("tarif").toString())));
                 
                 dataList.add(dataMap);
             }    
@@ -328,7 +351,13 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
             ex.printStackTrace();
         }
         
-        int rowNum = 0;
+        int rowNumHeader = 1;
+        Row rowHeader = sheet.createRow(rowNumHeader);
+        Cell cellHeader = rowHeader.createCell(2);
+        cellHeader.setCellValue("Laporan Data Maskapai");
+        
+        
+        int rowNum = 3;
         System.out.println("Creating excel");
    
         Row row = sheet.createRow(rowNum++);
@@ -354,8 +383,6 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
             cell.setCellValue((Integer)dataMap.get("no"));
             cell = row.createCell(colNum++);
             cell.setCellValue((String)dataMap.get("nama"));
-            cell = row.createCell(colNum++);
-            cell.setCellValue((String)dataMap.get("no_pesawat"));
             cell = row.createCell(colNum++);
             cell.setCellValue((String)dataMap.get("bandara"));
             cell = row.createCell(colNum++);
@@ -413,7 +440,6 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
         XWPFTableRow tableRowOne = table.getRow(0);      
         tableRowOne.getCell(0).setText("No.");
         tableRowOne.addNewTableCell().setText("Nama Maskapai");
-        tableRowOne.addNewTableCell().setText("No. Pesawat");
         tableRowOne.addNewTableCell().setText("Bandara");
         tableRowOne.addNewTableCell().setText("Kelas");
         tableRowOne.addNewTableCell().setText("Tarif");
@@ -431,10 +457,9 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
                 Map dataMap = new HashMap();
                 dataMap.put("no", cnt++);
                 dataMap.put("nama", rs.getString("nama"));
-                dataMap.put("no_pesawat", rs.getString("no_pesawat"));
                 dataMap.put("bandara", rs.getString("bandara"));
                 dataMap.put("kelas", rs.getString("kelas"));
-                dataMap.put("tarif", rs.getString("tarif"));
+                dataMap.put("tarif", new CurrencyUtils().formatRupiah(new BigDecimal(rs.getString("tarif").toString())));
                 
                 dataList.add(dataMap);
             }    
@@ -444,13 +469,14 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
         
         for(int i = 0; i < dataList.size(); i++){
             Map dataMap = (Map) dataList.get(i);
+            
+            System.out.println(dataMap);
 
             XWPFTableRow tableRowTwo = table.createRow();
             tableRowTwo.getCell(0).setText(dataMap.get("no").toString());
             tableRowTwo.getCell(1).setText((String) dataMap.get("nama"));
-            tableRowTwo.getCell(2).setText((String) dataMap.get("no_pesawat"));
-            tableRowTwo.getCell(3).setText((String) dataMap.get("bandara"));
-            tableRowTwo.getCell(4).setText((String) dataMap.get("kelas"));
+            tableRowTwo.getCell(2).setText((String) dataMap.get("bandara"));
+            tableRowTwo.getCell(3).setText((String) dataMap.get("kelas"));
             tableRowTwo.getCell(4).setText((String) dataMap.get("tarif"));
             
         }
@@ -484,7 +510,7 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
         btnHapus = new javax.swing.JButton();
         expotXls = new javax.swing.JLabel();
         exportPdf = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        exportWord = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         dataTable = new javax.swing.JTable();
@@ -525,7 +551,7 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
 
         jLabel3.setText("Kata Kunci ");
 
-        cbPengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nama Maskapai", "No. Pesawat", "Kelas" }));
+        cbPengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua", "Nama Maskapai", "Kelas", "Tarif", "Bandara" }));
 
         btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/cari-16.png"))); // NOI18N
         btnCari.setText("Cari");
@@ -609,7 +635,12 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/Word.png"))); // NOI18N
+        exportWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/Word.png"))); // NOI18N
+        exportWord.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                exportWordMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -623,7 +654,7 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(exportPdf)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(exportWord)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tambahBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -637,7 +668,7 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
+                    .addComponent(exportWord)
                     .addComponent(exportPdf)
                     .addComponent(jLabel4)
                     .addComponent(expotXls)
@@ -735,15 +766,18 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
         }
         
         int i = dataTable.getSelectedRow();
-        String kode = (String)dataTable.getValueAt(i, 1);
-        String nama = (String)dataTable.getValueAt(i, 2);
-        
-        System.out.println("Kode : "+kode);
+        String namaMaskapai = (String)dataTable.getValueAt(i, 1);
+        String bandara = (String)dataTable.getValueAt(i, 2);
+        String kelas = (String)dataTable.getValueAt(i, 3);
+        String tarif = (String)dataTable.getValueAt(i, 4);        
         
         Map data = new HashMap();
         data.put("action", "edit");
-        data.put("userId", kode);
-        data.put("userName", nama);
+        data.put("namaMaskapai", namaMaskapai);
+        data.put("bandara", bandara);
+        data.put("kelas", kelas);
+        data.put("tarif", new CurrencyUtils().unFormatRupiah(tarif));
+        
         new FrmTambahMaskapai(null, true, data).setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
@@ -765,7 +799,6 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void tambahBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tambahBtnActionPerformed
-        // TODO add your handling code here:
         dispose();
         Map data = new HashMap();
         data.put("action", "tambah");
@@ -773,7 +806,6 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
     }//GEN-LAST:event_tambahBtnActionPerformed
 
     private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
-        // TODO add your handling code here:
         showTable();
     }//GEN-LAST:event_btnCariActionPerformed
 
@@ -784,6 +816,14 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
     private void expotXlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_expotXlsMouseClicked
         generateExcel();
     }//GEN-LAST:event_expotXlsMouseClicked
+
+    private void exportWordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exportWordMouseClicked
+        try {
+            generateWord();
+        } catch (IOException ex) {
+            Logger.getLogger(FrmDaftarMaskapai.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_exportWordMouseClicked
 
     /**
      * @param args the command line arguments
@@ -834,13 +874,13 @@ public class FrmDaftarMaskapai extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbPengguna;
     private javax.swing.JTable dataTable;
     private javax.swing.JLabel exportPdf;
+    private javax.swing.JLabel exportWord;
     private javax.swing.JLabel expotXls;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

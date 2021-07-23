@@ -46,6 +46,7 @@ public class FrmTambahPengguna extends javax.swing.JDialog {
         String kode = (String) data.get("userId");
         String nama = (String) data.get("userName");
         String email = (String) data.get("email");
+        String level = (String) data.get("level");
         initComponents();
         setLocationRelativeTo(null);
         
@@ -60,6 +61,8 @@ public class FrmTambahPengguna extends javax.swing.JDialog {
             passwordField.setBackground(Color.LIGHT_GRAY);
             konfirmPasswordField.setEditable(false);
             konfirmPasswordField.setBackground(Color.LIGHT_GRAY);
+            levelCB.setSelectedItem(level);
+            
         }
         
         today = new Date();

@@ -103,7 +103,9 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
         
         String sql = "";
         
-        if("ID Pengguna".equals(cbPengguna.getSelectedItem())){
+        if("Semua".equals(cbPengguna.getSelectedItem())){
+            sql = "SELECT * FROM tbl_user WHERE user_id LIKE ? OR user_name LIKE ? or email LIKE ? or level LIKE ?";
+        }else if("ID Pengguna".equals(cbPengguna.getSelectedItem())){
             sql = "SELECT * FROM tbl_user WHERE user_id LIKE ?";
         }else{
             sql = "SELECT * FROM tbl_user WHERE user_name LIKE ? ";
@@ -113,7 +115,16 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
         int cnt = 1;
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, kataKunci);
+            
+            if("Semua".equals(cbPengguna.getSelectedItem())){
+                ps.setString(1, kataKunci);
+                ps.setString(2, kataKunci);
+                ps.setString(3, kataKunci);
+                ps.setString(4, kataKunci);
+            }else{
+                ps.setString(1, kataKunci);
+            }
+            
             rs = ps.executeQuery();
             
             while (rs.next()){
@@ -193,6 +204,7 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
                 String kode = (String)dataTable.getValueAt(i, 1);
                 String nama = (String)dataTable.getValueAt(i, 2);
                 String email = (String)dataTable.getValueAt(i, 3);
+                String level = (String)dataTable.getValueAt(i, 4);
 
                 System.out.println("Kode : "+kode);
 
@@ -201,6 +213,7 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
                 data.put("userId", kode);
                 data.put("userName", nama);
                 data.put("email", email);
+                data.put("level", level);
                 new FrmTambahPengguna(null, true, data).setVisible(true);
             }
         });
@@ -522,7 +535,7 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
 
         jLabel3.setText("Kata Kunci ");
 
-        cbPengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID Pengguna", "Nama Pengguna" }));
+        cbPengguna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semua", "ID Pengguna", "Nama Pengguna" }));
 
         btnCari.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/cari-16.png"))); // NOI18N
         btnCari.setText("Cari");
@@ -740,6 +753,7 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
         String kode = (String)dataTable.getValueAt(i, 1);
         String nama = (String)dataTable.getValueAt(i, 2);
         String email = (String)dataTable.getValueAt(i, 3);
+        String level = (String)dataTable.getValueAt(i, 4);
         
         System.out.println("Kode : "+kode);
         
@@ -748,6 +762,7 @@ public class FrmDaftarPengguna extends javax.swing.JDialog {
         data.put("userId", kode);
         data.put("userName", nama);
         data.put("email", email);
+        data.put("level", level);
         
         dispose();
         new FrmTambahPengguna(null, true, data).setVisible(true);

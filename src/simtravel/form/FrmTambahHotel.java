@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import simtravel.utils.CurrencyUtils;
 
 /**
  *
@@ -42,18 +43,25 @@ public class FrmTambahHotel extends javax.swing.JDialog {
         con = new DBUtils().getKoneksi();
         userId = (String) data.get("userId");
         action = (String) data.get("action");
-        String kode = (String) data.get("userId");
-        String nama = (String) data.get("userName");
+        
+        String namaHotel = (String) data.get("namaHotel");
+        String lokasi = (String) data.get("lokasi");
+        String bintang = (String) data.get("bintang");
+        String tarif = (String) data.get("tarif");
+        
         initComponents();
         setLocationRelativeTo(null);
         
         if(action.equals("edit")){
             judulLabel.setText("Update Hotel");
-            kodeField.setText(kode);
-            namaField.setText(nama);
+            kodeField.setText(namaHotel);
+            namaField.setText(lokasi);
             kodeField.setBackground(Color.LIGHT_GRAY);
             kodeField.setEditable(false);            
+            levelCB.setSelectedItem(bintang);
+            tarifField.setText(tarif);
         }
+        
         
         today = new Date();
         
@@ -61,7 +69,7 @@ public class FrmTambahHotel extends javax.swing.JDialog {
     
     public boolean validasi(){
         if(kodeField.getText() == null || kodeField.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(null, "Nama Tidak Boleh Kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nama Hotel Tidak Boleh Kosong", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }else if(namaField.getText() == null || namaField.getText().trim().equals("")){
             JOptionPane.showMessageDialog(null, "Lokasi tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
@@ -89,12 +97,12 @@ public class FrmTambahHotel extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Data berhasil di tambahkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            
+            JOptionPane.showMessageDialog(null, "Data gagal di tambahkan", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     public void updateRecord(){
-        String sql = "UPDATE tbl_hotel SET lokasi = ?, bintang = ?, tarif = ? WHERE name = ? ";
+        String sql = "UPDATE tbl_hotel SET lokasi = ?, bintang = ?, tarif = ? WHERE nama = ? ";
         con = new DBUtils().getKoneksi();
         try {
             ps = con.prepareStatement(sql);
@@ -107,6 +115,7 @@ public class FrmTambahHotel extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Data berhasil di update", "Informasi", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Data gagal di update", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
     }

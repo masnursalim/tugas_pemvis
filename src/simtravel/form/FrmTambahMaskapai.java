@@ -42,17 +42,22 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
         con = new DBUtils().getKoneksi();
         userId = (String) data.get("userId");
         action = (String) data.get("action");
-        String kode = (String) data.get("userId");
-        String nama = (String) data.get("userName");
+        String namaMaskapai = (String) data.get("namaMaskapai");
+        String bandara = (String) data.get("bandara");
+        String kelas = (String) data.get("kelas");
+        String tarif = (String) data.get("tarif");
+        
         initComponents();
         setLocationRelativeTo(null);
         
         if(action.equals("edit")){
-            judulLabel.setText("Update Hotel");
-            kodeField.setText(kode);
-            namaField.setText(nama);
+            judulLabel.setText("Update Maskapai");
+            kodeField.setText(namaMaskapai);
             kodeField.setBackground(Color.LIGHT_GRAY);
-            kodeField.setEditable(false);            
+            kodeField.setEditable(false);
+            bandaraField.setText(bandara);
+            tarifField.setText(tarif);
+            levelCB.setSelectedItem(kelas);
         }
         
         today = new Date();
@@ -62,10 +67,7 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
     public boolean validasi(){
         if(kodeField.getText() == null || kodeField.getText().trim().equals("")){
             JOptionPane.showMessageDialog(null, "Nama Tidak Boleh Kosong", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }else if(namaField.getText() == null || namaField.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(null, "Lokasi tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
+            return false;        
         }else if(tarifField.getText() == null || tarifField.getText().trim().equals("")){
             JOptionPane.showMessageDialog(null, "Tarif tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
@@ -75,16 +77,15 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
     }
     
     public void tambahRecord(){
-        String sql = "INSERT INTO tbl_maskapai(nama, no_pesawat, bandara, kelas, tarif, created_by, created_dt) VALUES (?, ?, ?, ?, ?, ?, ?) ";
+        String sql = "INSERT INTO tbl_maskapai(nama, bandara, kelas, tarif, created_by, created_dt) VALUES (?, ?, ?, ?, ?, ?) ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, kodeField.getText());
-            ps.setString(2, namaField.getText());
-            ps.setString(3, bandaraField.getText());
-            ps.setString(4, levelCB.getSelectedItem().toString());
-            ps.setString(5, tarifField.getText());
-            ps.setString(6, userId);
-            ps.setTimestamp(7, new Timestamp(new java.util.Date().getTime()));
+            ps.setString(2, bandaraField.getText());
+            ps.setString(3, levelCB.getSelectedItem().toString());
+            ps.setString(4, tarifField.getText());
+            ps.setString(5, userId);
+            ps.setTimestamp(6, new Timestamp(new java.util.Date().getTime()));
             ps.execute();
             
             JOptionPane.showMessageDialog(null, "Data berhasil di tambahkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
@@ -95,14 +96,14 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
     }
     
     public void updateRecord(){
-        String sql = "UPDATE tbl_maskapai SET bandara = ?, kelas = ?, tarif = ? WHERE no_pesawat = ? ";
+        String sql = "UPDATE tbl_maskapai SET bandara = ?, kelas = ?, tarif = ? WHERE nama = ? ";
         con = new DBUtils().getKoneksi();
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, bandaraField.getText());
             ps.setString(2, levelCB.getSelectedItem().toString());
             ps.setString(3, tarifField.getText());
-            ps.setString(4, namaField.getText());
+            ps.setString(4, kodeField.getText());
             ps.execute();
             
             JOptionPane.showMessageDialog(null, "Data berhasil di update", "Informasi", JOptionPane.INFORMATION_MESSAGE);
@@ -128,8 +129,6 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
         judulLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        namaField = new javax.swing.JTextField();
         kodeField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -149,7 +148,7 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
 
         judulLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         judulLabel.setForeground(new java.awt.Color(255, 255, 255));
-        judulLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/building-32.png"))); // NOI18N
+        judulLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/plane-32.png"))); // NOI18N
         judulLabel.setText("Tambah Maskapai");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -173,8 +172,6 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
 
         jLabel2.setText("Nama Maskapai ");
 
-        jLabel3.setText("No. Pesawat ");
-
         jLabel1.setText("Tarif ");
 
         jLabel6.setText("Kelas");
@@ -196,15 +193,12 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
                         .addComponent(tarifField))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(29, 29, 29)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(kodeField)
-                            .addComponent(namaField)
                             .addComponent(levelCB, 0, 223, Short.MAX_VALUE)
                             .addComponent(bandaraField))))
                 .addContainerGap(108, Short.MAX_VALUE))
@@ -216,11 +210,7 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(kodeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(namaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(levelCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -232,7 +222,7 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tarifField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35))
+                .addGap(53, 53, 53))
         );
 
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -297,7 +287,7 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
         );
@@ -382,7 +372,6 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
     private javax.swing.JButton btnSimpan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
@@ -391,7 +380,6 @@ public class FrmTambahMaskapai extends javax.swing.JDialog {
     private javax.swing.JLabel judulLabel;
     private javax.swing.JTextField kodeField;
     private javax.swing.JComboBox<String> levelCB;
-    private javax.swing.JTextField namaField;
     private javax.swing.JTextField tarifField;
     // End of variables declaration//GEN-END:variables
 }

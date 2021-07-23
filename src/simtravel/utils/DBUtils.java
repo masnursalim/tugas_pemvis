@@ -115,6 +115,38 @@ public class DBUtils {
         return totalPengguna;
     }
     
+    public String getTotalJamaah(){
+        String totalPengguna = "0";
+        con = getKoneksi();
+        String sql = "SELECT COUNT(*) AS jumlah_pengguna FROM tbl_customer ";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                totalPengguna = rs.getString("jumlah_pengguna");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalPengguna;
+    }
+    
+    public String getTotalPemesanan(){
+        String totalPengguna = "0";
+        con = getKoneksi();
+        String sql = "SELECT COUNT(*) AS jumlah_pengguna FROM tbl_pemesanan ";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                totalPengguna = rs.getString("jumlah_pengguna");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return totalPengguna;
+    }
+    
     public static void main(String[] args) throws SQLException{
         DBUtils util = new DBUtils();
         Map paramMap = new HashMap();
