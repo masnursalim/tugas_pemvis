@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import simtravel.utils.EncryptionUtils;
 
 /**
  *
@@ -61,7 +62,7 @@ public class FrmUbahPassword extends javax.swing.JDialog {
         con = new DBUtils().getKoneksi();
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, passwordBaruField.getText());
+            ps.setString(1, EncryptionUtils.encrypt(passwordBaruField.getText(), "p@ssw0rd") );
             ps.setString(2, userId);          
             ps.execute();
             
@@ -157,7 +158,7 @@ public class FrmUbahPassword extends javax.swing.JDialog {
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnSimpan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/simpan-16.png"))); // NOI18N
-        btnSimpan.setText("Simpan");
+        btnSimpan.setText("Update");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSimpanActionPerformed(evt);
@@ -224,13 +225,6 @@ public class FrmUbahPassword extends javax.swing.JDialog {
         if(validasi()){
             ubahPassword();
             dispose();
-            Map data = new HashMap();
-            data.put("userId", userId);
-            try {
-                new FrmLogin(null, true).setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(FrmUbahPassword.class.getName()).log(Level.SEVERE, null, ex);
-            }
             
         }
     }//GEN-LAST:event_btnSimpanActionPerformed

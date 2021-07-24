@@ -117,7 +117,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             totalJamaahLabel.setForeground(c2);
             totalPemesananLabel.setForeground(c3);
             
-            setDashboard();
+            //setDashboard();
           }
         };
         // Timer
@@ -158,6 +158,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         totalJamaahLabel = new javax.swing.JLabel();
@@ -356,6 +357,14 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/business-report_32.png"))); // NOI18N
         jLabel12.setText("Dashboard");
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/refresh-16.png"))); // NOI18N
+        jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -363,13 +372,17 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel12)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -552,6 +565,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu1.add(vendorMenu);
 
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/umrah-24.png"))); // NOI18N
         jMenuItem4.setText("Paket Umrah");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -560,6 +574,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu1.add(jMenuItem4);
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/umrah-24.png"))); // NOI18N
         jMenuItem6.setText("Paket Haji");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -581,6 +596,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 
         penjualanMenu.setText("Transaksi");
 
+        kandidatMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/shopping-cart-24.png"))); // NOI18N
         kandidatMenu.setText("Input Pemesanan");
         kandidatMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -589,6 +605,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         penjualanMenu.add(kandidatMenu);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/credit-card-24.png"))); // NOI18N
         jMenuItem3.setText("Update Status Pembayaran");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -601,6 +618,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 
         jMenu3.setText("Laporan");
 
+        dashboardPenerimaBeasiswa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/report-24.png"))); // NOI18N
         dashboardPenerimaBeasiswa.setText("Laporan Calon Jamaah");
         dashboardPenerimaBeasiswa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -609,6 +627,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu3.add(dashboardPenerimaBeasiswa);
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/report-24.png"))); // NOI18N
         jMenuItem2.setText("Laporan Keberangkatan/Kepulangan");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -617,6 +636,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu3.add(jMenuItem2);
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/report-24.png"))); // NOI18N
         jMenuItem1.setText("Laporan Pemesanan");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -629,6 +649,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 
         jMenu5.setText("Bantuan");
 
+        menuAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/computer-24.png"))); // NOI18N
         menuAbout.setText("About");
         menuAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -637,6 +658,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu5.add(menuAbout);
 
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/google-docs-24.png"))); // NOI18N
         jMenuItem8.setText("Panduan Aplikasi");
         jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -645,6 +667,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         });
         jMenu5.add(jMenuItem8);
 
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/google-docs-24.png"))); // NOI18N
         jMenuItem5.setText("Download Laporan KKP");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -826,6 +849,10 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         new FrmDaftarPaketHaji(null, true).setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setDashboard();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -879,6 +906,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     private javax.swing.JMenuItem barangMenu;
     private javax.swing.JPanel candidatPanel;
     private javax.swing.JMenuItem dashboardPenerimaBeasiswa;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

@@ -7,6 +7,7 @@ package simtravel.form;
 
 import simtravel.utils.DBUtils;
 import java.awt.Color;
+import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -87,9 +88,13 @@ public class FrmTambahCustomer extends javax.swing.JDialog {
             jDateChooser1.setDate(tglLahir);
             jTextField3.setText(email);
             jTextArea1.setText(alamat);
-            jTextField2.setText(noTelp);
+            jTextField2.setText(noTelp);                        
             jLabel7.setText("");
-            jLabel7.setIcon(new ImageIcon("d:/tmp/"+foto));
+//            jLabel7.setIcon(new ImageIcon("d:/tmp/"+foto));
+            ImageIcon ii = new ImageIcon("d:/tmp/"+foto);
+            Image img = ii.getImage().getScaledInstance(jLabel7.getWidth(), jLabel7.getHeight(), Image.SCALE_SMOOTH);
+            jLabel7.setIcon(new ImageIcon(img));
+            
         }else if(action.equals("detail")){
             judulLabel.setText("Detail Calon Jamaah");
             kodeField.setText(noKtp);
@@ -116,7 +121,10 @@ public class FrmTambahCustomer extends javax.swing.JDialog {
             jTextField2.setText(noTelp);
             jTextField2.setEditable(false);
             jLabel7.setText("");
-            jLabel7.setIcon(new ImageIcon("d:/tmp/"+foto));
+//            jLabel7.setIcon(new ImageIcon("d:/tmp/"+foto));
+            ImageIcon ii = new ImageIcon("d:/tmp/"+foto);
+            Image img = ii.getImage().getScaledInstance(jLabel7.getWidth(), jLabel7.getHeight(), Image.SCALE_SMOOTH);
+            jLabel7.setIcon(new ImageIcon(img));
             jButton2.setEnabled(false);
             jComboBox1.setEnabled(false);
             
@@ -568,7 +576,10 @@ public class FrmTambahCustomer extends javax.swing.JDialog {
         int r = fileChooser.showSaveDialog(null);
         if (r == JFileChooser.APPROVE_OPTION){
             jLabel7.setText("");
-            jLabel7.setIcon(new ImageIcon(fileChooser.getSelectedFile().getAbsolutePath()));
+            ImageIcon ii = new ImageIcon(fileChooser.getSelectedFile().getAbsolutePath());
+            //Resize image to fit jlabel.
+            Image img = ii.getImage().getScaledInstance(jLabel7.getWidth(), jLabel7.getHeight(), Image.SCALE_SMOOTH);
+            jLabel7.setIcon(new ImageIcon(img));
             fileName = fileChooser.getSelectedFile().getName();
             
             // copy file to d:\temp

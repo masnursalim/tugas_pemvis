@@ -69,6 +69,7 @@ public class FrmPemesanan extends javax.swing.JDialog {
         namaLengkapField.setEditable(false);
         hargaField.setEditable(false);
         emailField.setEditable(false);
+        printInvoice.setEnabled(false);
         
         if(data != null){
             
@@ -288,7 +289,7 @@ public class FrmPemesanan extends javax.swing.JDialog {
 
         judulLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         judulLabel.setForeground(new java.awt.Color(255, 255, 255));
-        judulLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/user-32.png"))); // NOI18N
+        judulLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/shopping-cart.png"))); // NOI18N
         judulLabel.setText("Formulir Pemesanan ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -535,6 +536,7 @@ public class FrmPemesanan extends javax.swing.JDialog {
                     tambahRecord();
                     try {
                         sentNotification();
+                        printInvoice.setEnabled(true);
                         //dispose();
                         //new FrmDaftarPengguna(null, true).setVisible(true);
                     } catch (FileNotFoundException ex) {

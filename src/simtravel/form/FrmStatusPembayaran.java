@@ -222,8 +222,8 @@ public class FrmStatusPembayaran extends javax.swing.JDialog {
 
         judulLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         judulLabel.setForeground(new java.awt.Color(255, 255, 255));
-        judulLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/user-32.png"))); // NOI18N
-        judulLabel.setText("Form Update Status Pembayaran  ");
+        judulLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/credit-card_32.png"))); // NOI18N
+        judulLabel.setText(" Form Update Status Pembayaran  ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

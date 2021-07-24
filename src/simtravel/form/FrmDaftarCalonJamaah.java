@@ -878,7 +878,8 @@ public class FrmDaftarCalonJamaah extends javax.swing.JDialog {
         String email = (String) dataTable.getValueAt(i, 6);
         String alamat = (String) dataTable.getValueAt(i, 7);
         String noTelp = (String) dataTable.getValueAt(i, 8);
-        String foto = (String) dataTable.getValueAt(i, 9);
+        String golDarah = (String) dataTable.getValueAt(i, 9);
+        String foto = (String) dataTable.getValueAt(i, 10);
         
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date myTanggalLahir = null;
@@ -898,6 +899,7 @@ public class FrmDaftarCalonJamaah extends javax.swing.JDialog {
         data.put("email", email);
         data.put("alamat", alamat);
         data.put("noTelp", noTelp);
+        data.put("golDarah", golDarah);
         data.put("foto", foto);
         
         System.out.println(data);
@@ -966,7 +968,8 @@ public class FrmDaftarCalonJamaah extends javax.swing.JDialog {
         String email = (String) dataTable.getValueAt(i, 6);
         String alamat = (String) dataTable.getValueAt(i, 7);
         String noTelp = (String) dataTable.getValueAt(i, 8);
-        String foto = (String) dataTable.getValueAt(i, 9);
+        String golDarah = (String) dataTable.getValueAt(i, 9);
+        String foto = (String) dataTable.getValueAt(i, 10);
         
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date myTanggalLahir = null;
@@ -986,6 +989,7 @@ public class FrmDaftarCalonJamaah extends javax.swing.JDialog {
         data.put("email", email);
         data.put("alamat", alamat);
         data.put("noTelp", noTelp);
+        data.put("golDarah", golDarah);
         data.put("foto", foto);
         new FrmTambahCustomer(null, true, data).setVisible(true);
     }//GEN-LAST:event_detailButtonActionPerformed
