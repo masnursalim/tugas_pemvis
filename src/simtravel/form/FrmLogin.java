@@ -335,9 +335,8 @@ public class FrmLogin extends javax.swing.JDialog {
         
         Boolean isSuccessLogin = loginByUserIdPassword(userId, password);
         
-        
-        
         if(isSuccessLogin){
+            dispose();
             Map data = new HashMap();
             data.put("userId", userId);
             data.put("userName", getUserName(userId));
