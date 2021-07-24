@@ -56,8 +56,8 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         jamDigital.setText("");
         jamDigital();
-        userId = "nursalim";//(String)data.get("userId");
-        userName = "Nursalim";//(String)data.get("userName");
+        userId = (String)data.get("userId");
+        userName = (String)data.get("userName");
         labelWelcome.setText(labelWelcome.getText().concat(userName));
 //        labelWelcome = new MarqueeLabel(labelWelcome.getText(), MarqueeLabel.RIGHT_TO_LEFT, 20);
         
