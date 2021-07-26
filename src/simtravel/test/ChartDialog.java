@@ -20,6 +20,9 @@ public class ChartDialog extends javax.swing.JDialog {
 
     /**
      * Creates new form ChartDialog
+     Test 123
+     Test123
+     
      */
     public ChartDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
