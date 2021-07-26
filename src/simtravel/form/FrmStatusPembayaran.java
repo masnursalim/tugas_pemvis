@@ -35,6 +35,8 @@ public class FrmStatusPembayaran extends javax.swing.JDialog {
     /**
      * Creates new form FrmDaftar
      * Nambahin comment
+     * Test 123456
+     * Test 67889
      */
     
     private Connection con;
