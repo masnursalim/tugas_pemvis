@@ -32,6 +32,7 @@ public class FrmLogin extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmLogin
+     * test virgan
      */
     
     private Connection con;
