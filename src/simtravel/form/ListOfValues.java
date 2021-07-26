@@ -146,6 +146,7 @@ public class ListOfValues extends javax.swing.JDialog {
         data.put("noPemesanan", noPemesanan);
         data.put("tglPemesanan", tglPemesanan);
         data.put("noKTP", noKTP);
+        data.put("Nama", noKTP);
         data.put("namaPaket", namaPaket);
         data.put("tipePemesanan", tipePemesanan);
         
@@ -168,11 +169,14 @@ public class ListOfValues extends javax.swing.JDialog {
         model.addColumn("No. Pemesanan"); 
         model.addColumn("Tanggal Pesanan");
         model.addColumn("No. KTP");
+//        model.addColumn("Nama");
         model.addColumn("Nama Paket");
         model.addColumn("Tipe Pemesanan");
         dataTable.setModel(model);
         
         String sql = data.get("sql").toString();
+        
+        System.out.println("sql == "+sql);
         
         con = new DBUtils().getKoneksi();
         int cnt = 1;
@@ -181,10 +185,13 @@ public class ListOfValues extends javax.swing.JDialog {
             rs = ps.executeQuery();
             
             while (rs.next()){
+//                String namaCustomer = getNamaCustomer(rs.getString("no_ktp"));
+                
                 model.addRow(new Object[]{ 
                     rs.getString("no_pemesanan"), 
                     rs.getString("tgl_pemesanan"),
                     rs.getString("no_ktp"),
+//                    namaCustomer,
                     rs.getString("nama_paket"),
                     rs.getString("tipe_pemesanan"),
                     } 
@@ -211,6 +218,29 @@ public class ListOfValues extends javax.swing.JDialog {
             }
         });
     }
+    
+    public String getNamaCustomer(String noKTP){
+        String namaCustomer = "";
+        
+        String sql = "select * from tbL_customer where no_ktp = ?";
+        
+        con = new DBUtils().getKoneksi();
+        int cnt = 1;
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, noKTP);
+            rs = ps.executeQuery();
+            
+            while (rs.next()){
+                namaCustomer = rs.getString("nama");
+            }    
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Gagal Menampilkan Data", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return namaCustomer;
+    }    
     
     /**
      * @param args the command line arguments

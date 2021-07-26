@@ -2,20 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmDaftarMaskapai.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmTambahPengguna.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmMenuUtama.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/utils/CurrencyUtils.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmDaftarPaket.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmAbout.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmTambahCustomer.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmTambahPaket.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/test/ChartDialog.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmDaftarCalonJamaah.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/form/FrmDaftarPengguna.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/utils/EncryptionUtils.java</file>
-            <file>file:/D:/Workspace/tugas_pemvis/src/simtravel/Main.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -71,6 +71,8 @@ public class FrmTambahCustomer extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         
+        jRadioButton1.setSelected(true);
+        
         if(action.equals("edit")){
             judulLabel.setText("Update Calon Jamaah");
             kodeField.setText(noKtp);
@@ -139,10 +141,38 @@ public class FrmTambahCustomer extends javax.swing.JDialog {
     
     public boolean validasiTambah(){
         if(kodeField.getText() == null || kodeField.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(null, "ID Pengguna tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No. KTP tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }else if(namaField.getText() == null || namaField.getText().trim().equals("")){
-            JOptionPane.showMessageDialog(null, "Nama Kategori tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Nama Lengkap tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(jTextField1.getText() == null || jTextField1.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Tempat Lahir tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(jDateChooser1.getDate() == null){
+            JOptionPane.showMessageDialog(null, "Tanggal Lahir tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return false; 
+        }else if(jTextArea1.getText() == null || jTextArea1.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Alamat Lengkap tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(jTextField2.getText() == null || jTextField2.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "No. Telp tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }else if(jTextField3.getText() == null || jTextField3.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null, "Email tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;      
+        }else if(jLabel7.getIcon() == null){
+            JOptionPane.showMessageDialog(null, "Foto Tidak boleh kosong", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if(!new RegexUtils().validateDigit(jTextField2.getText())){
+            JOptionPane.showMessageDialog(null, "No. Telp harus angka", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        if(!new RegexUtils().validateEmail(jTextField3.getText())){
+            JOptionPane.showMessageDialog(null, "Format alamat email harus benar", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         
@@ -320,7 +350,7 @@ public class FrmTambahCustomer extends javax.swing.JDialog {
 
         jLabel6.setText("Gol. Darah   ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "O", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "AB", "O" }));
 
         jLabel8.setText("Alamat Lengkap ");
 
