@@ -39,7 +39,7 @@ import simtravel.utils.DBUtils;
  *
  * @author Nursalim
  */
-public class FrmMenuUtama extends javax.swing.JDialog {
+public class FrmMenuUtama1 extends javax.swing.JDialog {
 
     /**
      * Creates new form FrmMainMenu
@@ -47,7 +47,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     
     String userId = "";
     String userName = "";
-    public FrmMenuUtama(java.awt.Frame parent, boolean modal, Map data) {
+    public FrmMenuUtama1(java.awt.Frame parent, boolean modal, Map data) {
         super(parent, modal);
 //        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/beasiswa/image/baitul_mal_32.png"));    
 //        setIconImage(icon);   
@@ -147,7 +147,6 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        backgroundPanel1 = new simtravel.form.BackgroundPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         candidatPanel = new javax.swing.JPanel();
@@ -335,15 +334,12 @@ public class FrmMenuUtama extends javax.swing.JDialog {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        labelWelcome.setForeground(new java.awt.Color(255, 255, 255));
         labelWelcome.setText("Selamat Datang, ");
 
-        jamDigital.setForeground(new java.awt.Color(255, 255, 255));
         jamDigital.setText("Rabu, 10 Desember 1983 10:10:10");
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        ubahPasswordLabel.setForeground(new java.awt.Color(255, 255, 255));
         ubahPasswordLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/change-password-icon-16.png"))); // NOI18N
         ubahPasswordLabel.setText("Ubah Password");
         ubahPasswordLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -352,7 +348,6 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             }
         });
 
-        logoutLabel.setForeground(new java.awt.Color(255, 255, 255));
         logoutLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/App-shutdown-icon-16.png"))); // NOI18N
         logoutLabel.setText("Logout");
         logoutLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -537,7 +532,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, 936, Short.MAX_VALUE)
+            .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,62 +543,6 @@ public class FrmMenuUtama extends javax.swing.JDialog {
                 .addComponent(jLabel13)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
-
-        javax.swing.GroupLayout backgroundPanel1Layout = new javax.swing.GroupLayout(backgroundPanel1);
-        backgroundPanel1.setLayout(backgroundPanel1Layout);
-        backgroundPanel1Layout.setHorizontalGroup(
-            backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 956, Short.MAX_VALUE)
-            .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(backgroundPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(backgroundPanel1Layout.createSequentialGroup()
-                            .addGap(37, 37, 37)
-                            .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jamDigital))
-                            .addGap(112, 112, 112)
-                            .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundPanel1Layout.createSequentialGroup()
-                                    .addComponent(ubahPasswordLabel)
-                                    .addGap(10, 10, 10)
-                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(logoutLabel))))
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap()))
-        );
-        backgroundPanel1Layout.setVerticalGroup(
-            backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 523, Short.MAX_VALUE)
-            .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(backgroundPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(backgroundPanel1Layout.createSequentialGroup()
-                            .addComponent(labelWelcome)
-                            .addGap(8, 8, 8)
-                            .addComponent(jamDigital))
-                        .addGroup(backgroundPanel1Layout.createSequentialGroup()
-                            .addGap(9, 9, 9)
-                            .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(ubahPasswordLabel)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(logoutLabel))))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(backgroundPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
-        );
-
-        jamDigital.getAccessibleContext().setAccessibleName("");
 
         jMenu1.setText("Master");
 
@@ -753,12 +692,49 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labelWelcome, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jamDigital))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ubahPasswordLabel)
+                        .addGap(10, 10, 10)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logoutLabel)))
+                .addContainerGap(54, Short.MAX_VALUE))
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(backgroundPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelWelcome)
+                        .addGap(8, 8, 8)
+                        .addComponent(jamDigital))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ubahPasswordLabel)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logoutLabel))))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        jamDigital.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -777,7 +753,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             try {
                 new FrmLogin(null, true).setVisible(true);
             } catch (SQLException ex) {
-                Logger.getLogger(FrmMenuUtama.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FrmMenuUtama1.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_logoutLabelMouseClicked
@@ -902,14 +878,18 @@ public class FrmMenuUtama extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuUtama1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuUtama1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuUtama1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmMenuUtama.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmMenuUtama1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -918,7 +898,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FrmMenuUtama dialog = new FrmMenuUtama(new javax.swing.JFrame(), true, null);
+                FrmMenuUtama1 dialog = new FrmMenuUtama1(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -935,7 +915,6 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private simtravel.form.BackgroundPanel backgroundPanel1;
     private javax.swing.JMenuItem barangMenu;
     private javax.swing.JPanel candidatPanel;
     private javax.swing.JMenuItem dashboardPenerimaBeasiswa;

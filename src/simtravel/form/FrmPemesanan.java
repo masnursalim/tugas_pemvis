@@ -698,6 +698,8 @@ public class FrmPemesanan extends javax.swing.JDialog {
             jasperDesign = JRXmlLoader.load(file);
             
             Map param = new HashMap();
+            InputStream imgInputStream = new FileInputStream("d:/tmp/"+"test_photo.png");
+            param.put("logo", imgInputStream);
             param.put("p_nopemesanan", kodeField.getText());
 
             jasperReport = JasperCompileManager.compileReport(jasperDesign);
@@ -733,6 +735,8 @@ public class FrmPemesanan extends javax.swing.JDialog {
             jasperDesign = JRXmlLoader.load(file);
             
             Map param = new HashMap();
+            InputStream imgInputStream = new FileInputStream("d:/tmp/"+"test_photo.png");
+            param.put("logo", imgInputStream);
             param.put("p_nopemesanan", kodeField.getText());
 
             jasperReport = JasperCompileManager.compileReport(jasperDesign);

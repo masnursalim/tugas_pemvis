@@ -578,9 +578,10 @@ public class FrmTambahCustomer extends javax.swing.JDialog {
             File file = new File("src/simtravel/report/rpt_customer_detail.jrxml");
             jasperDesign = JRXmlLoader.load(file);
             
-            InputStream imgInputStream = new FileInputStream("d:/tmp/"+"test_photo.png");
-            
             Map param = new HashMap();
+            InputStream imgInputStream = new FileInputStream("d:/tmp/"+"test_photo.png");
+            InputStream logo = new FileInputStream(new File("src/simtravel/image/logo.png"));
+            param.put("logo", logo);
             param.put("p_noktp", kodeField.getText());
             param.put("foto", imgInputStream);
 
