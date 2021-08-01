@@ -200,7 +200,7 @@ public class FrmPemesanan extends javax.swing.JDialog {
             ps.setDate(5, new java.sql.Date(tglPesananField.getDate().getTime()));
             ps.setString(6, "Belum Lunas");
             ps.setString(7, rbHaji.isSelected()?"Haji":"Umrah");
-            ps.setString(8, uangDPField.getText());
+            ps.setString(8, uangDPField.getText().equals("")?"0":uangDPField.getText());
             ps.setString(9, new CurrencyUtils().unFormatRupiah(hargaField.getText()));
             ps.execute();
             
