@@ -70,7 +70,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 //        labelWelcome = new MarqueeLabel(labelWelcome.getText(), MarqueeLabel.RIGHT_TO_LEFT, 20);
         
         setDashboard();
-        randomColorJamaahDashboard();
+//        randomColorJamaahDashboard();
     }
     
     
@@ -204,6 +204,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         setTitle("Sistem Informasi Travel Umrah & Haji - PT. Ismata Nusantara Abadi");
         setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(153, 153, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel1.setBackground(new java.awt.Color(153, 153, 255));
@@ -285,7 +286,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("Update Status Pembayaran");
+        jLabel19.setText("Ubah Status Pembayaran");
 
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/credit-card_32.png"))); // NOI18N
@@ -361,6 +362,7 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             }
         });
 
+        jPanel3.setBackground(new java.awt.Color(153, 153, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jPanel4.setBackground(new java.awt.Color(102, 102, 255));
@@ -368,10 +370,10 @@ public class FrmMenuUtama extends javax.swing.JDialog {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/business-report_32.png"))); // NOI18N
-        jLabel12.setText("Dashboard");
+        jLabel12.setText("Dasbor");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/simtravel/image/refresh-16.png"))); // NOI18N
-        jButton1.setText("Refresh");
+        jButton1.setText("Segarkan");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -385,8 +387,8 @@ public class FrmMenuUtama extends javax.swing.JDialog {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
