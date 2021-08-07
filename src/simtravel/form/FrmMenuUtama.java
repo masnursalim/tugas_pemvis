@@ -33,6 +33,8 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
+import org.jfree.ui.RefineryUtilities;
+import simtravel.test.ChartDialog;
 import simtravel.utils.DBUtils;
 
 /**
@@ -837,7 +839,14 @@ public class FrmMenuUtama extends javax.swing.JDialog {
     }//GEN-LAST:event_salaryCreditingPanelMouseClicked
 
     private void dashboardPenerimaBeasiswaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardPenerimaBeasiswaActionPerformed
-//        new FrmChartPenerimaBeasiswa(null, true).setVisible(true);
+        try {
+            ChartDialog chartDialog = new ChartDialog(null, true);
+            chartDialog.setVisible(true);
+                    } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrmMenuUtama.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(FrmMenuUtama.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_dashboardPenerimaBeasiswaActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
